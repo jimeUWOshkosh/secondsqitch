@@ -53,7 +53,7 @@ Lets create the branch
 git-hub 1
 
 Create your database
-Note: your root should gave your use privileges to postgres
+Note: your root should gave your user privileges to postgres
 createdb cjdate
 
 sqitch add appschema -n 'Add schema for all cjdate objects.'
