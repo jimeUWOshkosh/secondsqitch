@@ -12,7 +12,6 @@ Ubuntu 20.04
   164  whereis postgres
   165  whereis postgresql
   167  cd /etc
-  172  rmdir postgresql
   173  sudo rmdir postgresql
   174  sudo userdel -f postgres
 
