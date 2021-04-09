@@ -1,0 +1,41 @@
+I had to remove an old verson of postgres
+
+Ubuntu 20.04
+
+  153  sudo apt-get --purge remove postgresql
+  154  sudo apt autoremove
+  155  dpkg -l | grep postgres
+  158  sudo apt-get --purge remove postgresql-common postgresql-contrib
+  160  sudo apt-get --purge remove postgresql-client-12 postgresql-client-13 postgresql-client-common
+  162  sudo apt-get --purge remove pgdg-keyring
+  163  sudo apt autoremove
+  164  whereis postgres
+  165  whereis postgresql
+  167  cd /etc
+  172  rmdir postgresql
+  173  sudo rmdir postgresql
+  174  sudo userdel -f postgres
+
+  178  sudo apt update && sudo apt upgrade -y
+  179  sudo apt install postgresql postgresql-contrib
+  186  sudo apt-get install build-essential curl git
+  189  sudo cpan App::Sqitch
+  190  sudo cpan YAML
+  191  sudo cpan App::Sqitch
+  192  sudo cpan Log::Log4perl
+  200  sudo apt-get install libpq-dev
+  193  sudo cpan DBD::Pg
+  204  sudo apt-get install perl-doc
+  202  perldoc autodie
+  206  perldoc Config::General
+  207  sudo cpan Config::General
+  208  sudo cpan JSON
+  209  sudo cpan Text::Unidecode
+  210  sudo cpan Pithub
+  211  sudo apt-get install ack jq
+
+# create my super user for postgres
+$ sudo -u postgres createuser --interactive
+    Enter name of role to add: sammy
+    Shall the new role be a superuser? (y/n) y
+

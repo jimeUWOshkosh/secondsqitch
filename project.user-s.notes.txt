@@ -1,0 +1,121 @@
+vi .bashrc
+    set -o vi
+    # find Ovid's git workflow scripts
+    export PATH="$HOME/bin:$PATH"
+    # Ovid's alias for helping out with git's Merge Conflicts
+    ### !!!typo!!! causes bash to hang!!!!
+    ### alias damnit="${EDITOR:-vim} $(ack -l --nopager '^(?:<|>|=){7}(?:\s|$)')"
+    # versus Ovid's original
+    # alias damnit='${EDITOR:-vim} $(git grep -l "<<<< HEAD")'
+
+source .bashrc
+mkdir Git
+cd Git
+git clone https://github.com/Ovid/git-workflow.git
+cd git-workflow
+mkdir ~/bin
+cp git*  ~/bin/.
+
+cd ~/Git
+git clone https://github.com/jimeUWOshkosh/secondsqitch.git
+cd secondsqitch
+git config --global user.name "J Edwards"
+git config --global user.email "notvalid@notvalid.com"
+git config --global core.editor vi
+
+
+cd ~/Git/secondsqitch
+sqitch init secondsqitch --uri https://github.com/jimeUWOSH/secondsqitch/ --engine pg
+# sqitch init secondsqitch --uri https://github.com/jimeUWOSH/secondsqitch/ --engine pg --top-dir sql
+
+$ sqitch engine alter pg --top-dir sql
+Missing Engine "pg"; use "add pg db:pg:" to add it
+
+Thought I try
+$ sqitch engine add pg --top-dir sql
+Created sql/
+Created sql/sqitch.plan
+Created sql/deploy/
+Created sql/revert/
+Created sql/verify/
+
+It added 3 lines to sqitch.conf
+$ cat sqitch.conf
+[core]
+	engine = pg
+	# plan_file = sqitch.plan
+	# top_dir = .
+# [engine "pg"]
+	# target = db:pg:
+	# registry = sqitch
+	# client = psql
+[engine "pg"]
+	target = db:pg:
+	top_dir = sql
+---eof---
+
+Added stuff to ~/.sqitch/sqitch.conf
+$ sqitch config --user engine.pg.client /usr/lib/postgresql/12/bin/psql
+$ sqitch config --user user.name 'J Edwards'
+$ sqitch config --user user.email 'notvalid@notvalid.com'
+
+Create an issue in your repo
+Create a personal token at git hub for this project. SAVE IT!!!!
+
+Set up Ovid's git-hub script
+vi .git-hub
+    user   jimeUWOshkosh
+    repo   secondsqitch
+    token  <personal access token>
+    target main
+
+Push your new files to your repo
+DO NOT push .git-hub to a PUBLIC github repository!!!!!!!!
+git status
+git add blah blah blah
+git commit  -a
+git push origin main
+
+Lets create the branch
+git-hub 1
+
+Create your database
+Note: your root should gave your use privileges to postgres
+createdb cjdate
+
+sqitch add appschema -n 'Add schema for all cjdate objects.'
+
+Replace with 'insert here' place holders
+vi sql/deploy/appschema.sql
+    CREATE SCHEMA cjdate;
+vi sql/revert/appschema.sql
+    DROP SCHEMA cjdate;
+vi sql/verify/appschema.sql
+    DO $$
+    BEGIN
+       ASSERT (SELECT has_schema_privilege('cjdate', 'usage'));
+    END $$;
+
+sqitch deploy db:pg:cjdate
+sqitch verify db:pg:cjdate
+sqitch revert db:pg:cjdate
+sqitch deploy db:pg:cjdate
+
+DO NOT push .git-hub to a PUBLIC github repository!!!!!!!!
+add, commit & push the changes to github
+
+There is only me, but lets run the Ovid script
+git-refresh
+
+git-merge-with-master
+    ...
+
+   Branch successfully merged and pushed.
+
+   You should now cleanup your branch if you no longer need it using:
+
+   git branch -d test-with-ovid-s-script-1
+   git push origin :test-with-ovid-s-script-1
+
+   And don't forget to close any issues that your PR has addressed.
+
