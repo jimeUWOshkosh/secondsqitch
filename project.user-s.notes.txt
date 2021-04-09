@@ -27,32 +27,6 @@ git config --global core.editor vi
 cd ~/Git/secondsqitch
  sqitch init secondsqitch --uri https://github.com/jimeUWOSH/secondsqitch/ --engine pg --top-dir sql
 
-$ sqitch engine alter pg --top-dir sql
-Missing Engine "pg"; use "add pg db:pg:" to add it
-
-Thought I try
-$ sqitch engine add pg --top-dir sql
-Created sql/
-Created sql/sqitch.plan
-Created sql/deploy/
-Created sql/revert/
-Created sql/verify/
-
-It added 3 lines to sqitch.conf
-$ cat sqitch.conf
-[core]
-	engine = pg
-	# plan_file = sqitch.plan
-	# top_dir = .
-# [engine "pg"]
-	# target = db:pg:
-	# registry = sqitch
-	# client = psql
-[engine "pg"]
-	target = db:pg:
-	top_dir = sql
----eof---
-
 Added stuff to ~/.sqitch/sqitch.conf
 $ sqitch config --user engine.pg.client /usr/lib/postgresql/12/bin/psql
 $ sqitch config --user user.name 'J Edwards'
