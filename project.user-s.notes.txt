@@ -25,8 +25,7 @@ git config --global core.editor vi
 
 
 cd ~/Git/secondsqitch
-sqitch init secondsqitch --uri https://github.com/jimeUWOSH/secondsqitch/ --engine pg
-# sqitch init secondsqitch --uri https://github.com/jimeUWOSH/secondsqitch/ --engine pg --top-dir sql
+ sqitch init secondsqitch --uri https://github.com/jimeUWOSH/secondsqitch/ --engine pg --top-dir sql
 
 $ sqitch engine alter pg --top-dir sql
 Missing Engine "pg"; use "add pg db:pg:" to add it
